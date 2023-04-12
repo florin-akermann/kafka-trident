@@ -6,6 +6,9 @@ edition = "2021"
 [dependencies]
 rdkafka = { version = "0.29.0", features = ["cmake-build"] }
 serde = "1.0.152"
+serde_json = "1.0.91"
+serde-avro = "0.5.0"
+murmur3 = "0.5.2"
 hocon = "0.9.0"
 
 log = "0.4.8"

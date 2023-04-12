@@ -35,7 +35,7 @@ pub fn create(config: &Hocon) -> LoggingConsumer {
         .expect("Consumer creation failed");
 
     consumer
-        .subscribe(&["__consumer_offsets"])
+        .subscribe(&["test-topic2"])
         .expect("Can't subscribe to specified topic");
     consumer
 }
