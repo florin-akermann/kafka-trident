@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, LinkedList};
 use std::convert::TryInto;
 
 use hocon::Hocon;
@@ -6,6 +6,7 @@ use rdkafka::{ClientConfig, ClientContext, TopicPartitionList};
 use rdkafka::config::RDKafkaLogLevel;
 use rdkafka::consumer::{Consumer, ConsumerContext, StreamConsumer};
 use rdkafka::error::KafkaResult;
+use rdkafka::statistics::TopicPartition;
 
 pub struct LoggingConsumerContext;
 
@@ -34,8 +35,10 @@ pub fn create(config: &Hocon) -> LoggingConsumer {
         .create_with_context(LoggingConsumerContext)
         .expect("Consumer creation failed");
 
+    let mut tps = TopicPartitionList::new();
+    tps.add_partition("test-topic", 0);
     consumer
-        .subscribe(&["test-topic2"])
+        .assign(&tps)
         .expect("Can't subscribe to specified topic");
     consumer
 }
